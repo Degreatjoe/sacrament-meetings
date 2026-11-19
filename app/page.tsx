@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getCurrentMeeting } from "@/lib/meetings-db";
 import type { SacramentMeeting } from "@/lib/types";
@@ -16,10 +17,22 @@ export default function Home() {
           <Link className="grid min-h-12 place-items-center rounded border border-ward-line bg-white px-5 text-sm font-bold hover:bg-background" href="/meetings">Browse all meetings</Link>
         </div>
       </div>
-      <aside className="min-h-[260px] rounded-sm bg-ward-green p-9 text-white shadow-[14px_14px_0_#e1d6bd] max-md:max-w-[420px]">
-        <p className="mb-7 mt-0 text-xs uppercase tracking-[.12em] text-ward-gold">This Week&apos;s Meeting</p>
-        <h2 className="mb-[70px] mt-0 font-serif text-4xl">{meeting.meetingType[0].toUpperCase()}{meeting.meetingType.slice(1)} Meeting</h2>
-        <span className="text-sm text-white/80">Presiding: {meeting.presiding}</span>
+      <aside className="relative isolate min-h-[360px] overflow-hidden rounded-sm bg-ward-green text-white shadow-[14px_14px_0_#e1d6bd] max-md:max-w-[420px]">
+        <Image
+          src="/meetinghouse.svg"
+          alt="A meetinghouse framed by trees beneath a warm sunset"
+          width={640}
+          height={480}
+          sizes="(max-width: 768px) 100vw, 330px"
+          preload
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 -z-[5] bg-gradient-to-t from-ward-green/95 via-ward-green/50 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 p-9">
+          <p className="mb-3 mt-0 text-xs uppercase tracking-[.12em] text-ward-gold">This Week&apos;s Meeting</p>
+          <h2 className="mb-4 mt-0 font-serif text-4xl">{meeting.meetingType[0].toUpperCase()}{meeting.meetingType.slice(1)} Meeting</h2>
+          <span className="text-sm text-white/90">Presiding: {meeting.presiding}</span>
+        </div>
       </aside>
     </section>
   );

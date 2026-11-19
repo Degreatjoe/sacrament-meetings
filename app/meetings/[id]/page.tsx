@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import MeetingDetail from "@/components/MeetingDetail";
 import PrintButton from "@/components/PrintButton";
-import { getMeetingById } from "@/lib/meetings-db";
+import { getServerApiUrl } from "@/lib/server-api";
 import type { SacramentMeeting } from "@/lib/types";
 
 export default async function MeetingDetailPage({
@@ -11,10 +11,18 @@ export default async function MeetingDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const numericId = Number(id);
-  const meeting: SacramentMeeting | null =
-    Number.isInteger(numericId) ? getMeetingById(numericId) : null;
-  if (!meeting) notFound();
+  const response = await fetch(
+    await getServerApiUrl(`/api/meetings/${encodeURIComponent(id)}`),
+    { cache: "no-store" },
+  );
+  if (response.status === 400 || response.status === 404) {
+    notFound();
+  }
+  if (!response.ok) {
+    throw new Error(`Unable to load meeting ${id}: ${response.status}`);
+  }
+
+  const meeting: SacramentMeeting = await response.json();
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-7 print:max-w-none print:px-0 print:py-0">

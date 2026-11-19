@@ -1,13 +1,20 @@
 import MeetingCard from "@/components/MeetingCard";
-import { getMeetings } from "@/lib/meetings-db";
+import { getServerApiUrl } from "@/lib/server-api";
 import type { SacramentMeeting } from "@/lib/types";
 
 export const metadata = {
   title: "Meeting Agenda | Oakridge 2nd Ward",
 };
 
-export default function MeetingsPage() {
-  const meetings: SacramentMeeting[] = getMeetings();
+export default async function MeetingsPage() {
+  const response = await fetch(await getServerApiUrl("/api/meetings"), {
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error(`Unable to load meetings: ${response.status}`);
+  }
+
+  const meetings: SacramentMeeting[] = await response.json();
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-12">

@@ -7,8 +7,12 @@ export async function GET(
 ): Promise<Response> {
   const { id } = await context.params;
   const numericId = Number(id);
-  const meeting: SacramentMeeting | null =
-    Number.isInteger(numericId) ? getMeetingById(numericId) : null;
+  if (!Number.isFinite(numericId)) {
+    const body: { error: string } = { error: "Meeting ID must be a number" };
+    return Response.json(body, { status: 400 });
+  }
+
+  const meeting: SacramentMeeting | null = getMeetingById(numericId);
   if (!meeting) {
     const body: { error: string } = { error: "Meeting not found" };
     return Response.json(body, { status: 404 });

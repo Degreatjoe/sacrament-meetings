@@ -10,15 +10,15 @@ export default function MeetingsPage() {
   const meetings: SacramentMeeting[] = getMeetings();
 
   return (
-    <section className="meetings-page">
-      <div className="section-heading">
+    <section className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mb-7 flex items-end justify-between border-b border-ward-line pb-5">
         <div>
-          <p className="eyebrow">Ward Program</p>
-          <h1>Recent Sacrament Meetings</h1>
+          <p className="m-0 text-[11px] font-extrabold uppercase tracking-[.14em] text-ward-gold">Ward Program</p>
+          <h1 className="mb-0 mt-2 font-serif text-4xl text-ward-green">Recent Sacrament Meetings</h1>
         </div>
-        <p>{meetings.length} meetings</p>
+        <p className="text-sm text-ward-muted">{meetings.length} meetings</p>
       </div>
-      <div className="meeting-grid">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {meetings.map((meeting) => (
           <MeetingCard key={meeting.id} meeting={meeting} />
         ))}

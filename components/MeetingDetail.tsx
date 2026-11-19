@@ -19,43 +19,43 @@ export default function MeetingDetail({
   meeting: SacramentMeeting;
 }) {
   return (
-    <article className="meeting-detail">
-      <header className="agenda-header">
-        <p>Oakridge 2nd Ward</p>
-        <h1>{formatMeetingType(meeting.meetingType)}</h1>
-        <h2>{formatDate(meeting.date)}</h2>
+    <article className="border border-ward-line bg-white shadow-[0_12px_40px_rgba(38,48,42,.07)] print:border-0 print:shadow-none">
+      <header className="border-b border-ward-line px-6 py-9 text-center">
+        <p className="m-0 text-[11px] font-extrabold uppercase tracking-[.14em] text-ward-gold">Oakridge 2nd Ward</p>
+        <h1 className="mb-1 mt-2 font-serif text-[38px] text-ward-green">{formatMeetingType(meeting.meetingType)}</h1>
+        <h2 className="m-0 text-base">{formatDate(meeting.date)}</h2>
       </header>
 
-      <div className="leadership-row">
-        <div><span>Presiding</span><strong>{meeting.presiding}</strong></div>
-        <div><span>Conducting</span><strong>{meeting.conducting}</strong></div>
+      <div className="grid grid-cols-2 border-b border-ward-line max-sm:grid-cols-1">
+        <div className="grid gap-1 px-8 py-5 max-sm:border-b max-sm:border-ward-line"><span className="text-[10px] uppercase tracking-widest text-ward-muted">Presiding</span><strong className="font-serif">{meeting.presiding}</strong></div>
+        <div className="grid gap-1 border-l border-ward-line px-8 py-5 max-sm:border-l-0"><span className="text-[10px] uppercase tracking-widest text-ward-muted">Conducting</span><strong className="font-serif">{meeting.conducting}</strong></div>
       </div>
 
-      <ol className="agenda-list">
-        <li><span>Opening Hymn</span><strong>#{meeting.openingHymn.number} · {meeting.openingHymn.title}</strong></li>
-        <li><span>Opening Prayer</span><strong>{meeting.openingPrayer}</strong></li>
-        {meeting.wardBusiness.map((item) => (
-          <li key={item.description}><span>Ward Business</span><strong>{item.description}</strong></li>
-        ))}
-        {meeting.stakeBusiness && (
-          <li><span>Stake Business</span><strong>Stake announcements and business</strong></li>
+      <ol className="m-0 list-none px-8 py-3 max-sm:px-5">
+        <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Opening Hymn</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">#{meeting.openingHymn.number} · {meeting.openingHymn.title}</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Opening Prayer</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">{meeting.openingPrayer}</strong></li>
+        {meeting.wardBusiness.length > 0 ? meeting.wardBusiness.map((item) => (
+          <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3" key={item.description}><span className="text-sm text-ward-muted">Ward Business</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">{item.description}</strong></li>
+        )) : (
+          <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Ward Business</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">None</strong></li>
         )}
-        <li><span>Sacrament Hymn</span><strong>#{meeting.sacramentHymn.number} · {meeting.sacramentHymn.title}</strong></li>
-        <li className="sacrament-row"><span>Sacrament</span><strong>Administered by the Aaronic Priesthood</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Stake Business</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">{meeting.stakeBusiness ? "Stake announcements and business" : "None"}</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Sacrament Hymn</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">#{meeting.sacramentHymn.number} · {meeting.sacramentHymn.title}</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center bg-background px-3 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Sacrament</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">Administered by the Aaronic Priesthood</strong></li>
         {meeting.speakers.map((speaker) => (
-          <li key={`${speaker.type}-${speaker.name}`}>
-            <span>{speaker.type === "speaker" ? speaker.topic : "Musical Number"}</span>
-            <strong>{speaker.name}{speaker.type === "musical-number" && speaker.topic ? ` · ${speaker.topic}` : ""}</strong>
+          <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3" key={`${speaker.type}-${speaker.name}`}>
+            <span className="text-sm text-ward-muted">{speaker.type === "speaker" ? speaker.topic : "Musical Number"}</span>
+            <strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">{speaker.name}{speaker.type === "musical-number" && speaker.topic ? ` · ${speaker.topic}` : ""}</strong>
           </li>
         ))}
-        <li><span>Closing Hymn</span><strong>#{meeting.closingHymn.number} · {meeting.closingHymn.title}</strong></li>
-        <li><span>Closing Prayer</span><strong>{meeting.closingPrayer}</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center border-b border-ward-line/70 max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Closing Hymn</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">#{meeting.closingHymn.number} · {meeting.closingHymn.title}</strong></li>
+        <li className="grid min-h-[52px] grid-cols-2 items-center max-sm:grid-cols-1 max-sm:py-3"><span className="text-sm text-ward-muted">Closing Prayer</span><strong className="text-right font-serif text-sm max-sm:mt-1 max-sm:text-left">{meeting.closingPrayer}</strong></li>
       </ol>
 
       {meeting.announcements && (
-        <section className="announcements">
-          <h2>Announcements</h2>
-          <ul>{meeting.announcements.map((item) => <li key={item}>{item}</li>)}</ul>
+        <section className="border-t border-ward-line px-8 py-5 max-sm:px-5">
+          <h2 className="font-serif text-lg text-ward-green">Announcements</h2>
+          <ul className="text-sm leading-7 text-ward-muted">{meeting.announcements.map((item) => <li key={item}>{item}</li>)}</ul>
         </section>
       )}
     </article>

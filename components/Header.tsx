@@ -20,14 +20,14 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="site-header">
-      <div className="header-inner">
-        <div className="ward-mark" aria-hidden="true">SM</div>
+    <header className="border-b border-ward-line bg-white print:hidden">
+      <div className="mx-auto grid min-h-[92px] max-w-6xl grid-cols-[48px_1fr_auto] items-center gap-4 px-6 py-3 max-sm:grid-cols-[40px_1fr]">
+        <div className="grid size-12 place-items-center rounded-full bg-ward-green font-serif text-base text-white max-sm:size-10" aria-hidden="true">SM</div>
         <div>
-          <p className="eyebrow">Sacramento Stake</p>
-          <h1>{wardName}</h1>
+          <p className="m-0 text-[11px] font-extrabold uppercase tracking-[.14em] text-ward-gold">Sacramento Stake</p>
+          <h1 className="m-0 mt-0.5 font-serif text-2xl text-foreground">{wardName}</h1>
         </div>
-        <p className="header-date">{date}</p>
+        <p className="m-0 text-sm text-ward-muted max-sm:hidden">{date}</p>
       </div>
     </header>
   );

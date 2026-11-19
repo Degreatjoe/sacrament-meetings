@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Home" },
@@ -7,15 +10,24 @@ const links = [
 ];
 
 export default function NavLinks() {
+  const pathname = usePathname();
+
   return (
-    <nav className="nav-links" aria-label="Main navigation">
+    <nav className="flex min-h-12 justify-center gap-8 bg-ward-green text-white max-sm:gap-2 print:hidden" aria-label="Main navigation">
       {links.map((link) => {
-        const active = link.href === "/";
+        const active =
+          link.href === "/"
+            ? pathname === "/"
+            : pathname === link.href || pathname.startsWith(`${link.href}/`);
         return (
           <Link
             key={link.href}
             href={link.href}
-            className={active ? "nav-link active" : "nav-link"}
+            className={`grid place-items-center border-b-[3px] px-2 text-sm transition-colors max-sm:text-xs ${
+              active
+                ? "border-ward-gold text-white"
+                : "border-transparent text-white/85 hover:border-white/50 hover:text-white"
+            }`}
             aria-current={active ? "page" : undefined}
           >
             {link.label}

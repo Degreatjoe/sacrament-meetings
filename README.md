@@ -20,6 +20,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+For production deployments outside Vercel, set `APP_ORIGIN` to the application's absolute HTTP(S) origin (for example, `https://meetings.example.org`). Vercel deployments use the platform-provided `VERCEL_URL`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

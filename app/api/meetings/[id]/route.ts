@@ -6,9 +6,14 @@ export async function GET(
   context: { params: Promise<{ id: string }> },
 ): Promise<Response> {
   const { id } = await context.params;
+  if (!/^[1-9]\d*$/.test(id)) {
+    const body: { error: string } = { error: "Meeting ID must be a positive integer" };
+    return Response.json(body, { status: 400 });
+  }
+
   const numericId = Number(id);
-  if (!Number.isFinite(numericId)) {
-    const body: { error: string } = { error: "Meeting ID must be a number" };
+  if (!Number.isSafeInteger(numericId)) {
+    const body: { error: string } = { error: "Meeting ID must be a safe integer" };
     return Response.json(body, { status: 400 });
   }
 

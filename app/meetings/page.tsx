@@ -1,12 +1,22 @@
+import { Suspense } from "react";
 import MeetingCard from "@/components/MeetingCard";
 import { getServerApiUrl } from "@/lib/server-api";
 import type { SacramentMeeting } from "@/lib/types";
+import Loading from "./loading";
 
 export const metadata = {
   title: "Meeting Agenda | Oakridge 2nd Ward",
 };
 
-export default async function MeetingsPage() {
+export default function MeetingsPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <MeetingsList />
+    </Suspense>
+  );
+}
+
+async function MeetingsList() {
   const response = await fetch(await getServerApiUrl("/api/meetings"), {
     cache: "no-store",
   });

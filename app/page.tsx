@@ -29,7 +29,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 -z-[5] bg-gradient-to-t from-ward-green/95 via-ward-green/50 to-transparent" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 p-9">
-          <p className="mb-3 mt-0 text-xs uppercase tracking-[.12em] text-ward-gold">This Week&apos;s Meeting</p>
+          <p className="mb-3 mt-0 text-xs uppercase tracking-[.12em] text-[#f0d7a3]">This Week&apos;s Meeting</p>
           <h2 className="mb-4 mt-0 font-serif text-4xl">{meeting.meetingType[0].toUpperCase()}{meeting.meetingType.slice(1)} Meeting</h2>
           <span className="text-sm text-white/90">Presiding: {meeting.presiding}</span>
         </div>

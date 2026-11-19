@@ -1,11 +1,25 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import MeetingDetail from "@/components/MeetingDetail";
 import PrintButton from "@/components/PrintButton";
 import { getServerApiUrl } from "@/lib/server-api";
 import type { SacramentMeeting } from "@/lib/types";
+import Loading from "../loading";
 
-export default async function MeetingDetailPage({
+export default function MeetingDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <MeetingDetailContent params={params} />
+    </Suspense>
+  );
+}
+
+async function MeetingDetailContent({
   params,
 }: {
   params: Promise<{ id: string }>;
